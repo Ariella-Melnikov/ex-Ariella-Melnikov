@@ -6,7 +6,7 @@ const { useState } = React
 
 export function App() {
 
-    const [page, setPage] = useState('home')
+    const [page, setPage] = useState('bookIndex')
 
 
     return (

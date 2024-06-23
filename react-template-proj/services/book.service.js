@@ -46,8 +46,16 @@ function save(book) {
     }
 }
 
-function getEmptyBook(title = '', amount ) {
-    return { id: '', title, amount }
+function getEmptyBook(title = '', amount = 0, currencyCode = 'USD', isOnSale = false) {
+    return {
+        id: '',
+        title,
+        listPrice: {
+            amount,
+            currencyCode,
+            isOnSale
+        }
+    };
 }
 
 function getFilterBy() {
@@ -81,8 +89,8 @@ function _createBooks() {
     }
 }
 
-function _createBook(title, amount) {
-    const book = getEmptyBook(title, amount)
-    book.id = utilService.makeId()
-    return book
+function _createBook(title, amount, currencyCode = 'USD', isOnSale = false) {
+    const book = getEmptyBook(title, amount, currencyCode, isOnSale);
+    book.id = utilService.makeId();
+    return book;
 }
