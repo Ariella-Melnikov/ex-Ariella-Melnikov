@@ -46,7 +46,7 @@ function save(book) {
     }
 }
 
-function getEmptyBook(title = '', amount = 0, currencyCode = 'USD', isOnSale = false) {
+function getEmptyBook(title = '', amount = 0, currencyCode = 'USD', isOnSale = false,  thumbnail = '') {
     return {
         id: '',
         title,
@@ -54,7 +54,8 @@ function getEmptyBook(title = '', amount = 0, currencyCode = 'USD', isOnSale = f
             amount,
             currencyCode,
             isOnSale
-        }
+        },
+        thumbnail,
     };
 }
 
@@ -81,16 +82,16 @@ function _createBooks() {
     let books = utilService.loadFromStorage(BOOK_KEY)
     if (!books || !books.length) {
         books = []
-        books.push(_createBook('metus hendrerit', 109))
-        books.push(_createBook('morbi', 129))
-        books.push(_createBook('at viverra venenatis', 108))
-        books.push(_createBook('dictum', 30))
+        books.push(_createBook('metus hendrerit', 109, "http://coding-academy.org/books-photos/20.jpg"))
+        books.push(_createBook('morbi', 129, "http://coding-academy.org/books-photos/14.jpg"))
+        books.push(_createBook('at viverra venenatis', 108, "http://coding-academy.org/books-photos/2.jpg"))
+        books.push(_createBook('dictum', 30, "http://coding-academy.org/books-photos/16.jpg"))
         utilService.saveToStorage(BOOK_KEY, books)
     }
 }
 
-function _createBook(title, amount, currencyCode = 'USD', isOnSale = false) {
-    const book = getEmptyBook(title, amount, currencyCode, isOnSale);
+function _createBook(title, amount, thumbnail = '', currencyCode = 'USD', isOnSale = false ) {
+    const book = getEmptyBook(title, amount, currencyCode, isOnSale, thumbnail);
     book.id = utilService.makeId();
     return book;
 }
