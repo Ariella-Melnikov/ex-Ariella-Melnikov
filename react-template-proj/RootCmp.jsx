@@ -12,7 +12,7 @@ export function App() {
     return (
         <section className="app">
             <header className="app-header full main-layout">
-                <h1>Ariella's App</h1>
+                <h1>The Book App</h1>
 
                 <nav className="app-nav">
                         <a onClick={() => setPage('home')} href="#">Home</a>
