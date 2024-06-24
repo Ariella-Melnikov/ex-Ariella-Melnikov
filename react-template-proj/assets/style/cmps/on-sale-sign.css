@@ -1,0 +1,8 @@
+.on-sale-sign {
+    color: white;
+    background-color: red;
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-left: 10px;
+}

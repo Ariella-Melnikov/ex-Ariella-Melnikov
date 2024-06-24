@@ -18,7 +18,7 @@ export const books = [
     "thumbnail": "http://coding-academy.org/books-photos/20.jpg",
     "language": "en",
     "listPrice": {
-      "amount": 109,
+      "amount": 155,
       "currencyCode": "EUR",
       "isOnSale": false
     }
@@ -40,7 +40,7 @@ export const books = [
     "thumbnail": "http://coding-academy.org/books-photos/14.jpg",
     "language": "sp",
     "listPrice": {
-      "amount": 44,
+      "amount": 108,
       "currencyCode": "EUR",
       "isOnSale": true
     }
@@ -62,7 +62,7 @@ export const books = [
     "thumbnail": "http://coding-academy.org/books-photos/2.jpg",
     "language": "he",
     "listPrice": {
-      "amount": 108,
+      "amount": 15,
       "currencyCode": "ILS",
       "isOnSale": false
     }
