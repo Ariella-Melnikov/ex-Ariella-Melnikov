@@ -29,16 +29,6 @@ export function BookFilter({ filterBy, onSetFilter }) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
 
-    // function handleTxtChange({ target }) {
-    //     const { value } = target
-    //     setFilterByToEdit(prevFilter => ({ ...prevFilter, txt: value }))
-    // }
-
-    // function handleMinSpeedChange({ target }) {
-    //     const { value } = target
-    //     setFilterByToEdit(prevFilter => ({ ...prevFilter, minAmount: +value }))
-    // }
-
     function onSubmitFilter(ev) {
         ev.preventDefault()
         onSetFilter(filterByToEdit)

@@ -8,10 +8,10 @@ _initializeBooks()
 
 export const bookService = {
     query,
-    get,
+    getById,
     remove,
     save,
-    getEmptyCar: getEmptyBook,
+    getEmptyBook,
     getNextBookId,
     getFilterBy,
     setFilterBy,
@@ -32,7 +32,7 @@ function query(filterBy = {}) {
         })
 }
 
-function get(bookId) {
+function getById(bookId) {
     return storageService.get(BOOK_KEY, bookId)
 }
 
@@ -42,24 +42,12 @@ function remove(bookId) {
 
 function save(book) {
     if (book.id) {
-        return storageService.put(BOOK_KEY, book)
+      return storageService.put(BOOKS_KEY, book)
     } else {
-        return storageService.post(BOOK_KEY, book)
+      const newBook = _createBook(book.title, book.amount)
+      return storageService.post(BOOKS_KEY, newBook)
     }
-}
-
-// function getEmptyBook(title = '', amount = 0, currencyCode = 'USD', isOnSale = false,  thumbnail = '') {
-//     return {
-//         id: '',
-//         title,
-//         listPrice: {
-//             amount,
-//             currencyCode,
-//             isOnSale
-//         },
-//         thumbnail,
-//     };
-// }
+  }
 
 function getEmptyBook(title = '', amount = '', currencyCode = 'USD', isOnSale = false, thumbnail = '') {
     return {

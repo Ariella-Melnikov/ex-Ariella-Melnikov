@@ -1,0 +1,153 @@
+.book-details-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 900px;
+    margin: 1rem auto;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Edu VIC WA NT Beginner', cursive;
+
+  }
+  
+  .book-details-title {
+    grid-column: 1/3;
+    background-color: #333;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 900;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .book-details-subtitle {
+    grid-column: 1/3;
+    background-color: #555;
+    color: white;
+    font-size: 1.4rem;
+    padding: 0.8rem;
+    text-align: center;
+  }
+  
+  .book-details-subtitle::first-letter {
+    text-transform: uppercase;
+  }
+  
+  .book-thumbnail-container {
+    position: relative;
+    overflow: hidden;
+    padding: 1rem;
+    grid-column: 1 ;
+
+  }
+  
+  .book-details-on-sale {
+    background-color: #ff4c4c;
+    position: absolute;
+    top: 20px;
+    left: -50px;
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 0.5rem;
+    width: 200px;
+    transform: rotate(-45deg);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .book-thumbnail-container img {
+    display: block;
+    max-width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    grid-column: 1/2;
+  }
+  
+  .book-details-info {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .book-details-info-row {
+    padding: 0.5rem 0;
+    text-align: justify;
+    grid-column: 2/3;
+  }
+  
+  .book-details-info-row:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  .book-details-info-title {
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-bottom: 0.5rem;
+  }
+  
+  .book-details-info-title::first-letter {
+    text-transform: uppercase;
+  }
+  
+  .book-details-info-text::after {
+    content: '.';
+  }
+  
+  .book-details-buy-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .buy-book-btn,
+  .go-back-btn,
+  .go-edit-btn {
+    cursor: pointer;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .buy-book-btn {
+    background-color: #28a745;
+    color: white;
+    margin-bottom: 1rem;
+  }
+  
+  .buy-book-btn:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+  }
+  
+  .go-back-btn,
+  .go-edit-btn {
+    background-color: #ff8c69;
+    color: white;
+    margin: 0.5rem;
+  }
+  
+  .go-back-btn:hover,
+  .go-edit-btn:hover {
+    background-color: #ff7043;
+    transform: translateY(-2px);
+  }
+  
+  
+  .green {
+    color: green;
+  }
+  
+  .red {
+    color: red;
+  }

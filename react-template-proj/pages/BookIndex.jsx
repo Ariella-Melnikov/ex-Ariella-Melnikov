@@ -65,7 +65,7 @@ export function BookIndex() {
       {selectedBookId && (
         <BookDetails
           onBack={() => setSelectedBookId(null)}
-          bookId={selectedBookId}
+          book={selectedBookId}
         />
       )}
     </section>

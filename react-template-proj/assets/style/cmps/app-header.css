@@ -1,29 +1,32 @@
 .app-header {
-  background-color: var(--clr1);
-  color: var(--clr1bg-light);
-  padding-block: .75em;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-inline: 20px;
+  padding: 1rem 2rem;
+  background-color:var(--clr1bg);
+  color: var(--gray1);
+  font-family: 'Edu VIC WA NT Beginner', cursive;
+}
+
+.nav-bar>*:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.nav-bar>* {
+  /* text-decoration: none; */
+  color: aliceblue;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-inline: 15px;
 
 }
 
-/* .app-header section:first-child {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-} */
-
-
-.app-header .app-nav {
-  display: flex;
-  gap: 15px;
+.nav-bar>*:hover {
+  color: rgb(119, 109, 109);
 }
 
-
-@media(max-width: 720px) {
-  .app-header {
-    color: var(--clr2bg);
-  }
+.logo {
+  font-size: 2rem;
+  font-weight: 600;
+  cursor: pointer;
 }
