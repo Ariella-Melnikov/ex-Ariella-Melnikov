@@ -25,6 +25,11 @@
   color: rgb(119, 109, 109);
 }
 
+.app-header .nav-bar {
+  display: flex;
+  gap: 15px;
+}
+
 .logo {
   font-size: 2rem;
   font-weight: 600;

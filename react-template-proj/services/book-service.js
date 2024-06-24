@@ -51,25 +51,29 @@ function save(book) {
     }
   }
 
-function getEmptyBook(title = '', amount = '', currencyCode = 'USD', isOnSale = false, thumbnail = '') {
+//   function getEmptyBook() {
+//     return { title: "", amount: "" }
+//   }
+
+function getEmptyBook() {
     return {
-        id: '',
-        title,
-        subtitle: '',
-        authors: [],
-        publishedDate: 0,
-        description: '',
-        pageCount: 0,
-        categories: [],
-        thumbnail,
-        language: 'en',
-        listPrice: {
-            amount,
-            currencyCode,
-            isOnSale
-        }
-    };
-}
+      id: '',
+      title: '',
+      subtitle: '',
+      authors: [],
+      publishedDate: 0,
+      description: '',
+      pageCount: 0,
+      categories: [],
+      thumbnail: '',
+      language: 'en',
+      listPrice: {
+        amount: 0,
+        currencyCode: 'USD',
+        isOnSale: false
+      }
+    }
+  }
 
 function getFilterBy() {
     return { ...gFilterBy }
@@ -109,7 +113,7 @@ function _createBook(title, amount) {
       thumbnail: `https://www.coding-academy.org/books-photos/${randomIndex}.jpg`,
       language: "en",
       listPrice: {
-        amount: amount,
+        amount,
         currencyCode: "EUR",
         isOnSale: false,
       },

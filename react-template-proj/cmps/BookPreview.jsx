@@ -7,6 +7,7 @@ export function BookPreview({ book }) {
   }
 
   const currencyCode = book.listPrice.currencyCode || 'USD'
+  const amount = book.listPrice.amount;
 
     return (
       <article>
@@ -26,10 +27,10 @@ export function BookPreview({ book }) {
           <div className="book-card-detail">
             <span className="book-card-details-title">Price:</span>
             <span className="book-card-details-info">
-              {/* {book.listPrice.amount.toLocaleString(undefined, {
+            {amount !== undefined ? amount.toLocaleString(undefined, {
                 style: "currency",
                 currency: currencyCode,
-              })} */}
+              }) : 'N/A'}
             </span>
           </div>
         </div>

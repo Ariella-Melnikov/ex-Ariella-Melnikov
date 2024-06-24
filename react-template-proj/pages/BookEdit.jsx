@@ -1,69 +1,79 @@
-const { useState } = React
-import { bookService } from "../services/book-service.js"
+const { useState, useEffect } = React
+const { useNavigate, useParams } = ReactRouterDOM
 
-export function BookEdit({ onAddBook, onCancelEdit }) {
-    const [bookToEdit, setBookToEdit] = useState(bookService.getEmptyBook())
+import { bookService } from '../services/book-service.js'
 
-    function handleChange({ target }) {
-        let { value, name: field } = target
-        switch (field) {
-            case "title":
-                value = target.value
-                break
-            case "amount":
-                value = +target.value || ""
-                break
+export function BookEdit() {
+  const [bookToEdit, setBookToEdit] = useState(bookService.getEmptyBook())
+  const navigate = useNavigate()
+  const { bookId } = useParams()
+
+  useEffect(() => {
+    if (bookId) loadBook()
+  }, [])
+
+//   function loadBook() {
+//     bookService
+//       .getById(bookId)
+//       .then(setBookToEdit)
+//       .catch((err) => console.log('err:', err))
+//   }
+
+function loadBook() {
+    bookService
+      .getById(bookId)
+      .then(book => {
+        if (!book.listPrice) {
+          book.listPrice = { amount: 0, currencyCode: 'USD', isOnSale: false };
         }
-        setBookToEdit((prevBook) => ({ ...prevBook, [field]: value }))
+        setBookToEdit(book);
+      })
+      .catch((err) => console.log('err:', err));
+  }
+
+  function handleChange({ target }) {
+    const field = target.name
+    let value = target.value
+
+    if (target.type === 'number') {
+      value = +value
     }
+
+    setBookToEdit((prevBook) => {
+      if (field === 'amount') {
+        return { ...prevBook, listPrice: { ...prevBook.listPrice, amount: value } }
+      }
+      return { ...prevBook, [field]: value }
+    })
+}    
 
     function onSaveBook(ev) {
-        ev.preventDefault()
-        onAddBook(bookToEdit)
+      ev.preventDefault()
+      bookService
+        .save(bookToEdit)
+        .then(() => {
+          navigate('/books')
+          showSuccessMsg(`Book saved successfully!`)
+        })
+        .catch((err) => console.log('err:', err))
     }
 
+    const { title, listPrice } = bookToEdit
+    const amount = listPrice ? listPrice.amount : ''
+
     return (
-        <section className="book-edit">
-            <h2 className="edit-book-header">Edit Book</h2>
-            <div className="book-edit-container">
-                <form onSubmit={onSaveBook}>
-                    <div className="book-details-info">
-                        <div>
-                            <span className="book-details-info-title">Title:</span>
-                            <input
-                                type="text"
-                                placeholder="Enter New Title"
-                                name="title"
-                                value={bookToEdit.title}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
+      <section className='book-edit'>
+        <h1>{bookId ? 'Edit' : 'Add'} Book</h1>
+        <form onSubmit={onSaveBook}>
+          <label htmlFor='title'>Title</label>
+          <input onChange={handleChange} value={title} type='text' name='title' id='title' />
 
-                        <div>
-                            <span className="book-details-info-title">Price:</span>
-                            <input
-                                type="number"
-                                placeholder="Set Price"
-                                name="amount"
-                                min="0"
-                                onChange={handleChange}
-                                value={bookToEdit.amount}
-                                required
-                            />
-                        </div>
+          <label htmlFor='amount'>Price</label>
+          <input onChange={handleChange} value={amount} type='number' name='amount' id='amount' />
 
-                        <div className="book-edit-actions-container">
-                            <button className="save-edit-btn" type="submit">
-                                Save ✔
-                            </button>
-                            <button className="cancel-edit-btn" onClick={onCancelEdit}>
-                                Cancel ✖
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </section>
+          <button>Save</button>
+        </form>
+      </section>
     )
-}
+  }
+
