@@ -1,11 +1,11 @@
-import { bookService } from "../services/book.service.js"
+// import { bookService } from "../services/book.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
 
-const { useEffect, useState } = React
+// const { useEffect, useState } = React
 
-export function BookDetails({ bookId, onBack }) {
+export function BookDetails({ book, onBack }) {
 
-    const [book, setBook] = useState(null)
+    // const [book, setBook] = useState(null)
 
     function getBookLng(lng) {
         switch (lng) {
@@ -21,11 +21,11 @@ export function BookDetails({ bookId, onBack }) {
         }
     }
 
-    useEffect(() => {
-        bookService.getById(bookId)
-            .then(book => setBook(book))
-            .catch(err => console.error('Error loading book:', err))
-    }, [bookId])
+    // useEffect(() => {
+    //     bookService.getById(bookId)
+    //         .then(book => setBook(book))
+    //         .catch(err => console.error('Error loading book:', err))
+    // }, [bookId])
 
     function getReadingType(pageCount) {
         if (pageCount > 500) return " - Serious Reading"

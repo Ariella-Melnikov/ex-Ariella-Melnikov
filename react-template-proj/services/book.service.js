@@ -3,8 +3,6 @@ import { storageService } from './async-storage.service.js'
 import {books as staticBooks} from './books.js'
 
 const BOOK_KEY = 'bookDB'
-// _createBooks()
-_initializeBooks()
 
 export const bookService = {
     query,
@@ -21,12 +19,16 @@ export const bookService = {
 function query(filterBy = {}) {
     return storageService.query(BOOK_KEY)
         .then(books => {
-            if (filterBy.txt) {
-                const regex = new RegExp(filterBy.txt, 'i')
+            if (!books || !books.length) {
+                books = staticBooks;
+                utilService.saveToStorage(BOOK_KEY, books);
+            }
+            if (filterBy.title) {
+                const regex = new RegExp(filterBy.title, 'i')
                 books = books.filter(book => regex.test(book.title))
             }
-            if (filterBy.minAmount) {
-                books = books.filter(book => book.listPrice.amount >= filterBy.minAmount)
+            if (filterBy.price) {
+                books = books.filter(book => book.listPrice.amount <= filterBy.price)
             }
             return books
         })
@@ -42,10 +44,10 @@ function remove(bookId) {
 
 function save(book) {
     if (book.id) {
-      return storageService.put(BOOKS_KEY, book)
+      return storageService.put(BOOK_KEY, book)
     } else {
       const newBook = _createBook(book.title, book.amount)
-      return storageService.post(BOOKS_KEY, newBook)
+      return storageService.post(BOOK_KEY, newBook)
     }
   }
 
@@ -92,6 +94,28 @@ function getNextBookId(bookId) {
         })
 }
 
+
+function _createBook(title, amount) {
+    const randomIndex = utilService.getRandomIntInclusive(1, 20)
+    return {
+      id: utilService.makeId(),
+      title,
+      subtitle: utilService.makeLorem(15),
+      authors: ["Duna elle"],
+      publishedDate: utilService.getRandomIntInclusive(1700, 2022),
+      description: utilService.makeLorem(50),
+      pageCount: utilService.getRandomIntInclusive(1, 700),
+      categories: ["Computers", "Hack"],
+      thumbnail: `http://coding-academy.org/books-photos/${randomIndex}.jpg`,
+      language: "en",
+      listPrice: {
+        amount: amount,
+        currencyCode: "EUR",
+        isOnSale: false,
+      },
+    }
+  }
+
 // function _createBooks() {
 //     let books = utilService.loadFromStorage(BOOK_KEY)
 //     if (!books || !books.length) {
@@ -110,33 +134,33 @@ function getNextBookId(bookId) {
 //     return book;
 // }
 
-function _createBooks() {
-    const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
-    const books = []
-    for (let i = 0; i < 20; i++) {
-        const book = {
-            id: utilService.makeId(),
-            title: utilService.makeLorem(2),
-            subtitle: utilService.makeLorem(4),
-            authors: [
-                utilService.makeLorem(1)
-            ],
-            publishedDate: utilService.getRandomIntInclusive(1950, 2024),
-            description: utilService.makeLorem(20),
-            pageCount: utilService.getRandomIntInclusive(20, 600),
-            categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
-            thumbnail: `http://coding-academy.org/books-photos/${i+1}.jpg`,
-            language: "en",
-            listPrice: {
-                amount: utilService.getRandomIntInclusive(80, 500),
-                currencyCode: "EUR",
-                isOnSale: Math.random() > 0.7
-            }
-        }
-        books.push(book)
-    }
-    console.log('books', books)
-}
+// function _createBooks() {
+//     const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
+//     const books = []
+//     for (let i = 0; i < 20; i++) {
+//         const book = {
+//             id: utilService.makeId(),
+//             title: utilService.makeLorem(2),
+//             subtitle: utilService.makeLorem(4),
+//             authors: [
+//                 utilService.makeLorem(1)
+//             ],
+//             publishedDate: utilService.getRandomIntInclusive(1950, 2024),
+//             description: utilService.makeLorem(20),
+//             pageCount: utilService.getRandomIntInclusive(20, 600),
+//             categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
+//             thumbnail: `http://coding-academy.org/books-photos/${i+1}.jpg`,
+//             language: "en",
+//             listPrice: {
+//                 amount: utilService.getRandomIntInclusive(80, 500),
+//                 currencyCode: "EUR",
+//                 isOnSale: Math.random() > 0.7
+//             }
+//         }
+//         books.push(book)
+//     }
+//     console.log('books', books)
+// }
 
 
 function _initializeBooks() {
