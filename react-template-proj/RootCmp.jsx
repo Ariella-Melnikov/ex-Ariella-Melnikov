@@ -1,43 +1,52 @@
+const Router = ReactRouterDOM.HashRouter
+const { Route, Routes, Navigate } = ReactRouterDOM
+
 import { Home } from './pages/Home.jsx'
 import { About } from './pages/About.jsx'
 import { BookIndex } from './pages/BookIndex.jsx'
 import { AppHeader } from './cmps/AppHeader.jsx'
+import { BookDetails } from "./pages/BookDetails.jsx"
+import { BookEdit } from "./pages/BookEdit.jsx"
+import { NotFound } from "./cmps/NotFound.jsx"
+
+
 
 const { useState, useEffect } = React
 
 export function App() {
 
-    const [page, setPage] = useState("book")
+    // const [page, setPage] = useState("book")
 
-    function onSetPage(ev, page) {
-        ev.preventDefault()
-        setPage(page)
-    }
+    // function onSetPage(ev, page) {
+    //     ev.preventDefault()
+    //     setPage(page)
+    // }
 
-    useEffect(() => {
-        console.log(page)
-    }, [page])
+    // useEffect(() => {
+    //     console.log(page)
+    // }, [page])
 
     return (
+        <Router>
         <section className="app">
-            <header>
 
-            <AppHeader onSetPage={onSetPage} />
-                {/* <h1>The Book App</h1>
+            <AppHeader/>
+ 
+            <main >
+            <Routes>
+            <Route path="/" element={<Navigate to="/books" />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/books" element={<BookIndex />} />
+            <Route path="/books/:bookId" element={<BookDetails />} />
+                        <Route path="/books/edit" element={<BookEdit />} />
+                        <Route path="/books/edit/:bookId" element={<BookEdit />} />
 
-                <nav className="app-nav">
-                        <a onClick={() => setPage('home')} href="#">Home</a>
-                        <a onClick={() => setPage('about')} href="#">About</a>
-                        <a onClick={() => setPage('bookIndex')} href="#">Books</a>
-                    </nav>
-                     */}
-            </header>
-     
-            <main className="main-layout">
-                {page === "home" && <Home />}
-                {page === "about" && <About />}
-                {page === "book" && <BookIndex />}
+                        <Route path="*" element={<NotFound />} />
+            </Routes>
             </main>
         </section>
+        </Router>
+
     )
 }

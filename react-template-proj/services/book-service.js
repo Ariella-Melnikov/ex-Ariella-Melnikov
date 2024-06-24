@@ -106,7 +106,7 @@ function _createBook(title, amount) {
       description: utilService.makeLorem(50),
       pageCount: utilService.getRandomIntInclusive(1, 700),
       categories: ["Computers", "Hack"],
-      thumbnail: `http://coding-academy.org/books-photos/${randomIndex}.jpg`,
+      thumbnail: `https://www.coding-academy.org/books-photos/${randomIndex}.jpg`,
       language: "en",
       listPrice: {
         amount: amount,

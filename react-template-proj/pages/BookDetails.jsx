@@ -1,11 +1,19 @@
-// import { bookService } from "../services/book.service.js"
+const { useParams, Link } = ReactRouterDOM
 import { LongTxt } from "../cmps/LongTxt.jsx"
+import { bookService } from "../services/book-service.js"
 
-// const { useEffect, useState } = React
 
-export function BookDetails({ book, onBack }) {
+const { useEffect, useState } = React
 
-    // const [book, setBook] = useState(null)
+export function BookDetails() {
+
+    const [book, setBook] = useState(null)
+    const { bookId } = useParams()
+
+    useEffect(() => {
+        bookService.getById(bookId)
+            .then(book => setBook(book))
+    }, [bookId])
 
     function getBookLng(lng) {
         switch (lng) {
@@ -21,11 +29,6 @@ export function BookDetails({ book, onBack }) {
         }
     }
 
-    // useEffect(() => {
-    //     bookService.getById(bookId)
-    //         .then(book => setBook(book))
-    //         .catch(err => console.error('Error loading book:', err))
-    // }, [bookId])
 
     function getReadingType(pageCount) {
         if (pageCount > 500) return " - Serious Reading"
@@ -103,9 +106,7 @@ export function BookDetails({ book, onBack }) {
                 </div>
 
                 <div className="actions-btns">
-                        <button className="go-back-btn" onClick={onBack}>
-                            ⬅ Go back
-                        </button>
+                        <button className="go-back-btn"><Link to="/books">⬅ Go back</Link></button>
                     </div>
                 </div>
 

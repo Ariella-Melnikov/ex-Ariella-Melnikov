@@ -1,4 +1,13 @@
+
+
 export function BookPreview({ book }) {
+
+  if (!book || !book.listPrice) {
+    return null;
+  }
+
+  const currencyCode = book.listPrice.currencyCode || 'USD'
+
     return (
       <article>
         <div className="book-card-select-book">
@@ -10,17 +19,17 @@ export function BookPreview({ book }) {
           <div className="book-card-detail">
             <span className="book-card-details-title">Author:</span>
             <span className="book-card-details-info">
-              {book.authors.toString()}
+              {book.authors}
             </span>
           </div>
   
           <div className="book-card-detail">
             <span className="book-card-details-title">Price:</span>
             <span className="book-card-details-info">
-              {book.listPrice.amount.toLocaleString(undefined, {
+              {/* {book.listPrice.amount.toLocaleString(undefined, {
                 style: "currency",
-                currency: book.listPrice.currencyCode,
-              })}
+                currency: currencyCode,
+              })} */}
             </span>
           </div>
         </div>

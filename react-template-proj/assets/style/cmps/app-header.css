@@ -30,3 +30,9 @@
   font-weight: 600;
   cursor: pointer;
 }
+
+.app-header a.active {
+  color: var(--clr2bg);
+  font-weight: 600;
+  text-decoration: underline;
+}
