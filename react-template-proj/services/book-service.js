@@ -14,6 +14,8 @@ export const bookService = {
     getFilterBy,
     setFilterBy,
     getDefaultFilter,
+    addReview,
+    deleteReview,
 }
 
 function query(filterBy = {}) {
@@ -118,6 +120,24 @@ function _createBook(title, amount) {
         isOnSale: false,
       },
     }
+  }
+
+  function addReview(bookId, review) {
+    return getById(bookId)
+      .then(book => {
+        if (!book.reviews) book.reviews = [];
+        review.id = utilService.makeId();
+        book.reviews.push(review);
+        return save(book);
+      });
+  }
+  
+  function deleteReview(bookId, reviewId) {
+    return getById(bookId)
+      .then(book => {
+        book.reviews = book.reviews.filter(review => review.id !== reviewId);
+        return save(book);
+      });
   }
 
 // function _createBooks() {

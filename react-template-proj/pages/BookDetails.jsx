@@ -1,6 +1,8 @@
 const { useParams, Link } = ReactRouterDOM
 import { LongTxt } from "../cmps/LongTxt.jsx"
 import { bookService } from "../services/book-service.js"
+import { AddReview } from "../cmps/AddReview.jsx"
+
 
 
 const { useEffect, useState } = React
@@ -14,6 +16,26 @@ export function BookDetails() {
         bookService.getById(bookId)
             .then(book => setBook(book))
     }, [bookId])
+
+    function handleAddReview() {
+        bookService.getById(bookId)
+            .then(book => setBook(book))
+    }
+
+    function handleDeleteReview(reviewId) {
+        bookService.deleteReview(bookId, reviewId)
+            .then(() => {
+                setBook(prevBook => ({
+                    ...prevBook,
+                    reviews: prevBook.reviews.filter(review => review.id !== reviewId)
+                }))
+            })
+    }
+
+
+
+
+    
 
     function getBookLng(lng) {
         switch (lng) {
@@ -114,6 +136,23 @@ export function BookDetails() {
                     <span className="book-details-info-title">Description:</span>
                     <LongTxt txt={book.description} />
                 </div>
+
+                <div className="book-reviews">
+                <h2>Reviews:</h2>
+                <ul>
+                    {book.reviews && book.reviews.map(review => (
+                        <li key={review.id}>
+                            <p><strong>Fullname:</strong> {review.fullname}</p>
+                            <p><strong>Rating:</strong> {review.rating}</p>
+                            <p><strong>Read At:</strong> {review.readAt}</p>
+                            <button onClick={() => handleDeleteReview(review.id)}>Delete</button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <AddReview bookId={bookId} onAddReview={handleAddReview} />
+            
         </section>
     )
 }
