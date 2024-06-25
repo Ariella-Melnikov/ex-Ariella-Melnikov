@@ -9,6 +9,7 @@ import { BookDetails } from "./pages/BookDetails.jsx"
 import { BookEdit } from "./pages/BookEdit.jsx"
 import { NotFound } from "./cmps/NotFound.jsx"
 import { UserMsg } from "./cmps/UserMsg.jsx"
+import { BookAdd } from "./pages/BookAdd.jsx"
 
 
 
@@ -16,17 +17,6 @@ import { UserMsg } from "./cmps/UserMsg.jsx"
 const { useState, useEffect } = React
 
 export function App() {
-
-    // const [page, setPage] = useState("book")
-
-    // function onSetPage(ev, page) {
-    //     ev.preventDefault()
-    //     setPage(page)
-    // }
-
-    // useEffect(() => {
-    //     console.log(page)
-    // }, [page])
 
     return (
         <Router>
@@ -40,6 +30,7 @@ export function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/books" element={<BookIndex />} />
+            <Route path="/books/gadd" element={<BookAdd />} />
             <Route path="/books/:bookId" element={<BookDetails />} />
                         <Route path="/books/edit" element={<BookEdit />} />
                         <Route path="/books/edit/:bookId" element={<BookEdit />} />

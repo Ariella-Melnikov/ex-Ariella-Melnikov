@@ -17,6 +17,7 @@ export const bookService = {
   getDefaultFilter,
   addReview,
   deleteReview,
+  addGoogleBook,
 }
 
 function query(filterBy = {}) {
@@ -175,6 +176,29 @@ function _getRandomReviewDate() {
   const end = new Date(2023, 0, 1).getTime()
   const randomDate = new Date(utilService.getRandomIntInclusive(start, end))
   return randomDate.toISOString().split('T')[0]
+}
+
+function addGoogleBook(googleBook) {
+  const book = {
+    id: utilService.makeId(),
+    title: googleBook.title,
+    subtitle: googleBook.subtitle || '',
+    authors: googleBook.authors || [],
+    publishedDate: googleBook.publishedDate || 0,
+    description: googleBook.description || '',
+    pageCount: googleBook.pageCount || 0,
+    categories: googleBook.categories || [],
+    thumbnail: googleBook.imageLinks ? googleBook.imageLinks.thumbnail : '',
+    language: googleBook.language || 'en',
+    listPrice: {
+      amount: googleBook.saleInfo && googleBook.saleInfo.listPrice ? googleBook.saleInfo.listPrice.amount : 0,
+      currencyCode:
+        googleBook.saleInfo && googleBook.saleInfo.listPrice ? googleBook.saleInfo.listPrice.currencyCode : 'USD',
+      isOnSale: (googleBook.saleInfo && googleBook.saleInfo.isOnSale) || false,
+    },
+    reviews: [],
+  }
+  return storageService.post(BOOK_KEY, book)
 }
 
 // function _createBooks() {
