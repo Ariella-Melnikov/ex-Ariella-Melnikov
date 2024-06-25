@@ -11,6 +11,7 @@ export const bookService = {
   save,
   getEmptyBook,
   getNextBookId,
+  getPreviousBookId,
   getFilterBy,
   setFilterBy,
   getDefaultFilter,
@@ -21,10 +22,10 @@ export const bookService = {
 function query(filterBy = {}) {
   return storageService.query(BOOK_KEY).then((books) => {
     if (!books || !books.length) {
-        books = staticBooks.map(book => ({
-            ...book,
-            reviews: _generateInitialReviews()
-          }));
+      books = staticBooks.map((book) => ({
+        ...book,
+        reviews: _generateInitialReviews(),
+      }))
       utilService.saveToStorage(BOOK_KEY, books)
     }
     if (filterBy.title) {
@@ -98,6 +99,14 @@ function getNextBookId(bookId) {
     let nextBookIdx = books.findIndex((book) => book.id === bookId) + 1
     if (nextBookIdx === books.length) nextBookIdx = 0
     return books[nextBookIdx].id
+  })
+}
+
+function getPreviousBookId(bookId) {
+  return storageService.query(BOOK_KEY).then((books) => {
+    let prevBookIdx = books.findIndex((book) => book.id === bookId) - 1
+    if (prevBookIdx < 0) prevBookIdx = books.length - 1
+    return books[prevBookIdx].id
   })
 }
 
